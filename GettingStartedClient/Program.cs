@@ -16,7 +16,7 @@ namespace GettingStartedClient
             
             Console.WriteLine("Write an expression to evaluate or enter 'exit' to quit.\nType 'help' for additional information.");
             string input = "";
-            double ans=0;
+            double ans = 0;
             bool exitProgram = false;
 
             string[] validCommands = { "exit", "help", "x", "h"};
@@ -78,74 +78,14 @@ namespace GettingStartedClient
                 }
                 else
                 {
-                    string[] parser = { "" };
                     try
                     {
-                        string operations = "+-*/%";
-                        if (operations.Any(c => input.Contains(c)))
-                        {
-                            parser = Regex.Split(input, @"([*\-+/%]|ans)", new RegexOptions() { });
-                            //foreach (string partial in parser.Where(s => s != String.Empty))
-                            //{
-                            //    Console.WriteLine(partial);
-                            //}
-                            char operation = ' ';
-                            double result = 0;
-                            double operand;
-                            foreach (string partial in parser.Where(s => s != String.Empty))
-                            {
-                                if (operations.Any(c => partial.Contains(c)))
-                                {
-                                    operation = partial[0];
-                                }
-                                else
-                                {
-                                    if (partial.Equals("ans"))
-                                    {
-                                        operand = ans;
-                                    }
-                                    else
-                                    {
-                                        operand = double.Parse(partial);
-                                    }
-                                    //Console.Write("Input: {0}" + operation + "{1}", result, operand);
-                                    switch (operation)
-                                    {
-                                        case ' ':
-                                            result = operand;
-                                            break;
-                                        case '+':
-                                            result = client.Add(result, operand);
-                                            break;
-                                        case '-':
-                                            result = client.Subtract(result, operand);
-                                            break;
-                                        case '*':
-                                            result = client.Multiply(result, operand);
-                                            break;
-                                        case '/':
-                                            result = client.Divide(result, operand);
-                                            break;
-                                        case '%':
-                                            result = client.Modulus(result, operand);
-                                            break;
-                                        default:
-                                            throw new Exception("Unknown operation: '" + operation + "'");
-                                    }
-                                    //Console.WriteLine("={0}", result);
-                                }
-                            }
-                            Console.WriteLine("ans = " + result.ToString());
-                            ans = result;
-                        }
-                        else
-                        {
-                            throw new Exception("Invalid syntax! >:( ");
-                        }
+                        ans = InputHandler.ParseInput(input, ans, client);
+                        Console.WriteLine("ans = " + ans.ToString());
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine(e.Message.ToString());
+                        Console.WriteLine(e.Message);
                     }
                 }
             }
