@@ -21,8 +21,8 @@ namespace GettingStartedClient
             string[] parser = { "" };
             
             string operations = "+-*/%";
-            if (operations.Any(c => input.Contains(c)))
-            {
+            //if (operations.Any(c => input.Contains(c)))
+            //{
                 parser = Regex.Split(input, @"([*\-+/%]|ans)", new RegexOptions() { });
                 char operation = ' ';
 
@@ -69,11 +69,11 @@ namespace GettingStartedClient
                     }
                 }     
                 ans = result;
-            }
-            else
-            {
-                throw new Exception("Invalid syntax! >:( ");
-            }
+            //}
+            //else
+            //{
+            //    throw new Exception("Invalid syntax! >:( ");
+            //}
             
             return result;
         }
@@ -111,10 +111,33 @@ namespace GettingStartedClient
             }
             if (depth != 0)
             {
-                throw new Exception("Unbalanced parentheses!");
+                throw new Exception("Unbalanced parentheses.");
+            }
+            if (string.IsNullOrEmpty(insideParentheses))
+            {
+                throw new Exception("Empty parentheses.");
             }
             insideParentheses = ParseInput(insideParentheses, ans, client).ToString();
             return beforeParentheses+insideParentheses+afterParentheses;
+        }
+
+        internal static string Kappa()
+        {
+            return @"░░░░░░░░░
+░░░░▄▀▀▀▀▀█▀▄▄▄▄░░░░
+░░▄▀▒▓▒▓▓▒▓▒▒▓▒▓▀▄░░
+▄▀▒▒▓▒▓▒▒▓▒▓▒▓▓▒▒▓█░
+█▓▒▓▒▓▒▓▓▓░░░░░░▓▓█░
+█▓▓▓▓▓▒▓▒░░░░░░░░▓█░
+▓▓▓▓▓▒░░░░░░░░░░░░█░
+▓▓▓▓░░░░▄▄▄▄░░░▄█▄▀░
+░▀▄▓░░▒▀▓▓▒▒░░█▓▒▒░░
+▀▄░░░░░░░░░░░░▀▄▒▒█░
+░▀░▀░░░░░▒▒▀▄▄▒▀▒▒█░
+░░▀░░░░░░▒▄▄▒▄▄▄▒▒█░
+ ░░░▀▄▄▒▒░░░░▀▀▒▒▄▀░░
+░░░░░▀█▄▒▒░░░░▒▄▀░░░
+░░░░░░░░▀▀█▄▄▄▄▀";
         }
     }
 }

@@ -19,74 +19,68 @@ namespace GettingStartedClient
             double ans = 0;
             bool exitProgram = false;
 
-            string[] validCommands = { "exit", "help", "x", "h"};
-
             while (!exitProgram)
             {
                 Console.Write("CalculatorService> ");
                 input = Console.ReadLine();
                 //remove uppercase letters and whitespaces from user input
                 input = Regex.Replace(input.ToLower(), @"\s", "");
-
-                if (validCommands.Any(s => input.Equals(s)))
+                switch (input)
                 {
-                    switch (input)
-                    {
-                        case "x":
-                        case "exit":
-                            exitProgram = true;
-                            Console.WriteLine("Bye! :)");
-                            break;
-                        case "h":
-                        case "help":
-                            Console.WriteLine("Supported commands:");
-                            Console.WriteLine("  exit , x : Terminate this application;");
-                            Console.WriteLine("  help , h : Show this message.");
-                            Console.WriteLine("");
-                            Console.WriteLine("Supported operations:");
-                            Console.WriteLine("  + : Addition;");
-                            Console.WriteLine("  - : Subtraction;");
-                            Console.WriteLine("  * : Multiplication;");
-                            Console.WriteLine("  / : Division;");
-                            Console.WriteLine("  % : Modulus.");
-                            Console.WriteLine("");
-                            Console.WriteLine("Supported operands:");
-                            Console.WriteLine("  Any positive number;");
-                            Console.WriteLine("  ans : Previous result. Starts as 0.");
-                            Console.WriteLine("");
-                            Console.WriteLine("Examples:");
-                            Console.WriteLine("  CalculatorService> 1+1");
-                            Console.WriteLine("  ans = 2");
-                            Console.WriteLine("  CalculatorService> 1-1");
-                            Console.WriteLine("  ans = 0");
-                            Console.WriteLine("  CalculatorService> 2*3");
-                            Console.WriteLine("  ans = 6");
-                            Console.WriteLine("  CalculatorService> 6/3");
-                            Console.WriteLine("  ans = 2");
-                            Console.WriteLine("  CalculatorService> 5%4");
-                            Console.WriteLine("  ans = 1");
-                            Console.WriteLine("  CalculatorService> ans+1");
-                            Console.WriteLine("  ans = 2");
-                            Console.WriteLine("");
-                            Console.WriteLine("");
-                            break;
-                        default:
-                            Console.WriteLine("Sorry, the command '{0}' hasn't been implemented yet! :(", input);
-                            break;
-                    }
-
-                }
-                else
-                {
-                    try
-                    {
-                        ans = InputHandler.ParseInput(input, ans, client);
-                        Console.WriteLine("ans = " + ans.ToString());
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e.Message);
-                    }
+                    case "":
+                        break;
+                    case "x":
+                    case "exit":
+                        exitProgram = true;
+                        Console.WriteLine("Bye! :)");
+                        break;
+                    case "h":
+                    case "help":
+                        Console.WriteLine("Supported commands:");
+                        Console.WriteLine("  exit , x : Terminate this application;");
+                        Console.WriteLine("  help , h : Show this message.");
+                        Console.WriteLine("");
+                        Console.WriteLine("Supported operations:");
+                        Console.WriteLine("  + : Addition;");
+                        Console.WriteLine("  - : Subtraction;");
+                        Console.WriteLine("  * : Multiplication;");
+                        Console.WriteLine("  / : Division;");
+                        Console.WriteLine("  % : Modulus.");
+                        Console.WriteLine("");
+                        Console.WriteLine("Supported operands:");
+                        Console.WriteLine("  Any positive number;");
+                        Console.WriteLine("  ans : Previous result. Starts as 0.");
+                        Console.WriteLine("");
+                        Console.WriteLine("Examples:");
+                        Console.WriteLine("  CalculatorService> 1+1");
+                        Console.WriteLine("  ans = 2");
+                        Console.WriteLine("  CalculatorService> 1-1");
+                        Console.WriteLine("  ans = 0");
+                        Console.WriteLine("  CalculatorService> 2*3");
+                        Console.WriteLine("  ans = 6");
+                        Console.WriteLine("  CalculatorService> 6/3");
+                        Console.WriteLine("  ans = 2");
+                        Console.WriteLine("  CalculatorService> 5%4");
+                        Console.WriteLine("  ans = 1");
+                        Console.WriteLine("  CalculatorService> ans+1");
+                        Console.WriteLine("  ans = 2");
+                        Console.WriteLine("");
+                        Console.WriteLine("");
+                        break;
+                    case "kappa":
+                        Console.WriteLine(InputHandler.Kappa());
+                        break;
+                    default:
+                        try
+                        {
+                            ans = InputHandler.ParseInput(input, ans, client);
+                            Console.WriteLine("ans = " + ans.ToString());
+                        }
+                        catch (Exception e)
+                        {
+                            Console.WriteLine("  Error: " + e.Message);
+                        }
+                        break;
                 }
             }
             
